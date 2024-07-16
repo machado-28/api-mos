@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha de Pedido de Visto - SME Angola</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 210mm;
+      margin: auto;
+      padding: 20mm;
+      border: 1px solid #000;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .sub-header {
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      display: flex;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group p {
+      margin: 0;
+      padding: 8px;
+      border: 1px solid #000;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    #img-passe {
+      width: 150px;
+      margin-right: 90%;
+    }
+
+    .d-flex-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      border: 1px solid black;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="<%= data.insigniaUrl %>" alt="Insígnia">
+      <h1>República de Angola</h1>
+      <div class="sub-header">
+        Ministério do Interior<br>
+        Serviço de Migração e Estrangeiros
+      </div>
+    </div>
+    <div class="header d-flex-row">
+      <h2>Ficha de Pedido de Visto de <%= data?.visto %> Nº</h2>
+      <h3> Cliente: <%= data?.nomeEmpresa %>
+      </h3>
+      <h3> Projecto: <%= data.projecto?.nome %>
+      </h3>
+      <img id="img-passe" src="<%= data.insigniaUrl %>" alt="foto passe">
+    </div>
+    <table>
+      <tr>
+        <th colspan="4">Informações Pessoais</th>
+      </tr>
+      <tr>
+        <td>Nome Completo:</td>
+        <td colspan="3"></td>
+      </tr>
+      <tr>
+        <td>Data de Nascimento:</td>
+        <td></td>
+        <td>Gênero:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Nacionalidade:</td>
+        <td></td>
+        <td>Estado Civil:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th colspan="4">Informações de Contato</th>
+      </tr>
+      <tr>
+        <td>Endereço:</td>
+        <td colspan="3"></td>
+      </tr>
+      <tr>
+        <td>Cidade:</td>
+        <td></td>
+        <td>CEP:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Telefone:</td>
+        <td></td>
+        <td>Email:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th colspan="4">Informações de Visto</th>
+      </tr>
+      <tr>
+        <td>Tipo de Visto:</td>
+        <td></td>
+        <td>Propósito da Viagem:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Data de Início:</td>
+        <td></td>
+        <td>Data de Término:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th colspan="4">Informações de Passaporte</th>
+      </tr>
+      <tr>
+        <td>Número do Passaporte:</td>
+        <td></td>
+        <td>País de Emissão:</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Data de Emissão:</td>
+        <td></td>
+        <td>Data de Validade:</td>
+        <td></td>
+      </tr>
+    </table>
+
+  </div>
+  <span>
+
+  </span>
+</body>
+
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório</title>
+  <style>
+    *{
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+      font-size: 0.6875rem;
+    }
+
+    thead {
+      height: 100px;
+    }
+
+    th {
+      background-color: #a09f9f;
+      font-size: 0.6875rem;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 40px;
+    }
+
+    .header img {
+      height: 50px;
+      margin-right: 20px;
+      margin: 40px;
+    }
+
+    .date {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .page-break {
+      page-break-after: always;
+      margin: 40px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <img src="http://localhost:4000/public/metalica.png" alt="Metaloca logo">
+   
+  </div>
+
+  <% data.forEach((table, tableIndex)=> { %>
+    <div class="page-break">
+      <h2>Referente ao mês de <%= table.mes %>, <%= table.ano %> - <%= table.nomeProjeto %>
+      </h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nº</th>
+            <th>REQUERENTE</th>
+            <th>DATA DE SOLICITAÇÃO - BV</th>
+            <th>NOME</th>
+            <th>NAC.</th>
+            <th>SEXO</th>
+            <th>PASSAPORTE Nº</th>
+            <th>MOB</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% table.dados.forEach((row, rowIndex)=> { %>
+            <tr>
+              <td>
+                <%= rowIndex + 1 %>
+              </td>
+              <td>
+                <%= row.requerente %>
+              </td>
+              <td>
+                <%= row.dataSolicitacao %>
+              </td>
+              <td>
+                <%= row.nome %>
+              </td>
+              <td>
+                <%= row.nacionalidade %>
+              </td>
+              <td>
+                <%= row.sexo %>
+              </td>
+              <td>
+                <%= row.passaporte %>
+              </td>
+              <td>
+                <%= row.mob %>
+              </td>
+            </tr>
+            <% }); %>
+        </tbody>
+      </table>
+    </div>
+    <% }); %>
+
+      <div class="date">Data: <%= new Date().toLocaleDateString() %>
+      </div>
+</body>
+
+</html>

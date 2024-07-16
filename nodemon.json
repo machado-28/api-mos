@@ -1,0 +1,8 @@
+{
+  "execMap": {
+    "js": "node -r sucrase/register",
+    "ext": "*.js",
+    "verbose": true,
+    "exec": "processing --sketch={{pwd}} --run"
+  }
+}

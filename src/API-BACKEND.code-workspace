@@ -1,0 +1,20 @@
+{
+  "folders": [
+	{
+		"path": ".."
+	},
+	{
+		"path": "../../FRONT-METALICA"
+	},
+	{
+		"path": "../../CLIENT"
+	}
+],
+  "settings": {
+    "vs-code-prettier-eslint.prettierLast": "false",
+    "workbench.colorCustomizations": {
+      "minimap.background": "#00000000",
+      "scrollbar.shadow": "#00000000"
+    }
+  }
+}

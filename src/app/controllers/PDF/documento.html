@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório</title>
+  <style>
+    * {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+      font-size: 0.6875rem;
+    }
+
+    thead {
+      height: 100px;
+    }
+
+    th {
+      background-color: #a09f9f;
+      font-size: 0.4875rem;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+    }
+
+    .header img {
+      height: 50px;
+      margin-right: 20px;
+      margin: 6px;
+
+    }
+
+    .date {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .page-break {
+      page-break-after: always;
+     
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <img src="http://localhost:4000/public/metalica.png" alt="Metaloca logo">
+
+  </div>
+
+  <% data.forEach((table, tableIndex)=> { %>
+    <div class="page-break header ">
+      <div>
+        <h3>Mapa de <%= table.visto %> <br> Referente ao mês de <%= table.mes %>, <%= table.ano %> <br> projecto: <%=
+                  table.nomeProjeto %>
+        </h3>
+        <hr>
+      </div>
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Nº</th>
+            <th>REQUERENTE</th>
+            <th>DATA DE SOLICITAÇÃO - BV</th>
+            <th>NOME</th>
+            <th>NAC.</th>
+            <th>SEXO</th>
+            <th>PASSAPORTE Nº</th>
+            <th>MOB</th>
+            <th>DT.RECEPÇÃO</th>
+            <th>DT.ENVIO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% table.dados.forEach((row, rowIndex)=> { %>
+            <tr>
+              <td>
+                <%= rowIndex + 1 %>
+              </td>
+              <td>
+                <%= row.requerente %>
+              </td>
+              <td>
+                <%= row.dataSolicitacao %>
+              </td>
+              <td>
+                <%= row.nome %>
+              </td>
+              <td>
+                <%= row.nacionalidade %>
+              </td>
+
+              <td style="background-color: <%= row.sexo === 'M' ? 'red' : 'pink' %>;">
+                <%= row.sexo %>
+              </td>
+
+
+
+              <td>
+                <%= row.passaporte %>
+              </td>
+              <td>
+                <%= row.mob %>
+              </td>
+              <td style="padding: 4px; font-size: 10px; width: 30px;">
+                <%= row.recepcao %>
+              </td>
+              <td style="background-color: <%= row.recepcao === undefined ? 'yellow' : 'white' %>;">
+                <%= row.envio %>
+              </td>
+            </tr>
+            <% }); %>
+        </tbody>
+      </table>
+      <div class="date">Data: <%= new Date().toLocaleDateString() %>
+      </div>
+    </div>
+    <% }); %>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _express = require("express");
+require("dotenv/config");
+var _multer = _interopRequireDefault(require("./config/multer"));
+var _multer2 = _interopRequireDefault(require("multer"));
+var _UploadController = _interopRequireDefault(require("./app/controllers/UploadController"));
+var _IniciarSessaoController = _interopRequireDefault(require("../src/app/controllers/IniciarSessaoController"));
+var _apiErrors = require("./app/helpers/api-errors");
+var _UsuarioController = _interopRequireDefault(require("./app/controllers/Usuarios/UsuarioController"));
+var _uploadAvatarController = _interopRequireDefault(require("./app/controllers/Upload/uploadAvatarController"));
+var _uploadController = _interopRequireDefault(require("./app/controllers/Upload/uploadController.js"));
+var _CreatePedidoUseCase = _interopRequireDefault(require("./app/Usecases/Pedidos/CreatePedidoUseCase.js"));
+var _ListDocumentoController = _interopRequireDefault(require("./app/controllers/Documentos/ListDocumentoController"));
+var _CreatePedidoController = _interopRequireDefault(require("./app/controllers/Pedidos/CreatePedidoController.js"));
+var _ListPedidosController = _interopRequireDefault(require("./app/controllers/Pedidos/ListPedidosController"));
+var _FazesController = _interopRequireDefault(require("./app/controllers/Pedidos/FazesController.js"));
+var _UpdatePedidoController = _interopRequireDefault(require("./app/controllers/Pedidos/UpdatePedidoController.js"));
+var _GerarPDF = _interopRequireDefault(require("./app/controllers/PDF/GerarPDF.js"));
+var _VistoController = _interopRequireDefault(require("./app/controllers/Visto/VistoController.js"));
+var _auth = _interopRequireDefault(require("./app/middleware/auth.js"));
+var _ProjectoController = _interopRequireDefault(require("./app/controllers/Projetos/ProjectoController.js"));
+var _ClienteController = _interopRequireDefault(require("./app/controllers/Clientes/ClienteController.js"));
+var _CreatePDFController = _interopRequireDefault(require("./app/controllers/PDF/CreatePDFController.js"));
+var _GestoresController = _interopRequireDefault(require("./app/controllers/Gestores/GestoresController.js"));
+var _TecnicosController = _interopRequireDefault(require("./app/controllers/Tecnicos/TecnicosController.js"));
+var _ProcessoController = _interopRequireDefault(require("./app/controllers/Processos/ProcessoController.js"));
+var _PainelController = _interopRequireDefault(require("./app/controllers/Painel/PainelController.js"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+const upload = (0, _multer2.default)(_multer.default);
+const routes = new _express.Router();
+routes.get("/api/v1", async (req, res) => {
+  return res.status(200).json({
+    message: "Metalica api"
+  });
+});
+routes.post("/api/v1/sessao", _IniciarSessaoController.default.executar);
+routes.use(_auth.default);
+routes.post("/api/v1/upload/", upload.single("anexo"), _uploadController.default.stores);
+routes.post("/api/v1/upload/one", upload.single("anexo"), _uploadController.default.storeOne);
+routes.post("/api/v1/upload/avatar", upload.single("avatar"), _uploadAvatarController.default.executar);
+routes.get("/api/v1/auth/perfil", _UsuarioController.default.detail);
+routes.post("/api/v1/usuarios", _UsuarioController.default.store);
+routes.get("/api/v1/usuarios", _UsuarioController.default.getAll);
+routes.get("/api/v1/usuarios/count", _UsuarioController.default.count);
+routes.get("/api/v1/fazes", _FazesController.default.getAll);
+routes.get("/api/v1/status-de-pedido/:fazeId", _FazesController.default.getStaus);
+routes.get("/api/v1/pedidos/", _ListPedidosController.default.getAll);
+routes.get("/api/v1/pedidos/count", _ListPedidosController.default.count);
+routes.post("/api/v1/pedidos/", _CreatePedidoController.default.store);
+routes.get("/api/v1/pedidos", _ListPedidosController.default.getOne);
+routes.patch("/api/v1/pedidos/:id", _UpdatePedidoController.default.execute);
+routes.put("/api/v1/processo/:id", _UpdatePedidoController.default.execute);
+routes.post("/api/v1/processos/", _ProcessoController.default.store);
+routes.get("/api/v1/processos/", _ProcessoController.default.list);
+routes.get("/api/v1/painels/", _PainelController.default.list);
+routes.post("/api/v1/gestores", _GestoresController.default.store);
+routes.get("/api/v1/gestores", _GestoresController.default.list);
+routes.put("/api/v1/gestores/:id", _UsuarioController.default.update);
+routes.delete("/api/v1/gestores/:id", _UsuarioController.default.delete);
+routes.get("/api/v1/gestores/count", _GestoresController.default.count);
+routes.post("/api/v1/tecnicos", _TecnicosController.default.store);
+routes.get("/api/v1/tecnicos", _TecnicosController.default.list);
+routes.put("/api/v1/tecnicos/:id", _TecnicosController.default.update);
+routes.get("/api/v1/tecnicos/count", _TecnicosController.default.count);
+routes.delete("/api/v1/tecnicos/:id", _TecnicosController.default.delete);
+routes.post("/api/v1/pdf/", _CreatePDFController.default.createMapa);
+routes.post("/api/v1/processo/sme/pdf", _CreatePDFController.default.createSMEForm);
+routes.post("/api/v1/visto", _VistoController.default.create);
+routes.get("/api/v1/vistos/expired", _VistoController.default.getAllExpired);
+routes.get("/api/v1/actived", _VistoController.default.getAllActived);
+routes.get("/api/v1/vistos", _VistoController.default.getAll);
+routes.put("/api/v1/vistos", _VistoController.default.create);
+routes.post("/api/v1/projectos", _ProjectoController.default.create);
+routes.put("/api/v1/projectos/:id", _ProjectoController.default.update);
+routes.delete("/api/v1/projectos/:id", _ProjectoController.default.delete);
+routes.get("/api/v1/projectos", _ProjectoController.default.list);
+routes.get("/api/v1/projectos/count", _ProjectoController.default.count);
+routes.get("/api/v1/projectos/:id", _ProjectoController.default.getOne);
+routes.post("/api/v1/clientes", _ClienteController.default.create);
+routes.get("/api/v1/clientes/count", _ClienteController.default.count);
+routes.get("/api/v1/clientes/:id", _ClienteController.default.getOne);
+routes.get("/api/v1/clientes", _ClienteController.default.getAll);
+var _default = exports.default = routes;

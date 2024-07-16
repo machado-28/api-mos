@@ -1,0 +1,58 @@
+<!-- template.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprovativo do Pedido de Emissão de Visto</title>
+  <style>
+    /* Adicione estilos CSS conforme necessário */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h2>Pedido de emissão de visto de trabalho</h2>
+  <table>
+    <tr>
+      <th>Descrição</th>
+      <td><%= data.numero %></td>
+    </tr>
+    <tr>
+      <th>PROCESSO Nº</th>
+      <td><%= data.requerente?.nome %></td>
+    </tr>
+    <!-- Adicione mais linhas conforme necessário -->
+    <tr>
+      <th>Faze/Entidade</th>
+      <td><%= data.fazeActual.nome %></td>
+    </tr>
+    <tr>
+      <th>Status</th>
+      <td><%= data.statusActual.nome %></td>
+    </tr>
+    <tr>
+      <th>Data de Recebido</th>
+      <td><%= data.createdAt %></td>
+    </tr>
+    FD
+    <!-- Adicione mais linhas conforme necessário -->
+    <tr>
+      <th>Nome Completo</th>
+      <td><%= data.requerente.nome %></td>
+    </tr>
+     
+    <!-- Adicione mais linhas conforme necessário -->
+  </table>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!-- template.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LISTA DE CLIENTES</title>
+  <style>
+    /* Adicione estilos CSS conforme necessário */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Lista de Clientes</h2>
+  <table>
+    <tr>
+      <th>Nome</th>
+      <td>
+        <%= data.nome %>
+      </td>
+    </tr>
+    <tr>
+      <th>Empresa</th>
+      <td>
+        <%= data.nomeEmpresa %>
+      </td>
+    </tr>
+    <!-- Adicione mais linhas conforme necessário -->
+    <tr>
+      <th>Status</th>
+      <td>
+        <%= data.statusActual.nome %>
+      </td>
+    </tr>
+    <tr>
+      <th>Data de Recebido</th>
+      <td>
+        <%= data.createdAt %>
+      </td>
+    </tr>
+    FD
+    <!-- Adicione mais linhas conforme necessário -->
+    <tr>
+      <th>Nome Completo</th>
+      <td>
+        <%= data.requerente.nome %>
+      </td>
+    </tr>
+
+    <!-- Adicione mais linhas conforme necessário -->
+  </table>
+</body>
+
+</html>
