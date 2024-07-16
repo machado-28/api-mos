@@ -1,0 +1,37 @@
+name: Deploy Node.js App
+
+on:
+  push:
+    branches:
+      - main  # Ou qualquer branch que você use para deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Especifique a versão do Node.js que você está usando
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build project
+      run: npm run build  # Se você tiver um processo de build, caso contrário remova esta linha
+
+    - name: Deploy to cPanel
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        echo "$SSH_PRIVATE_KEY" > private_key
+        chmod 600 private_key
+        rsync -avz --delete -e "ssh -i private_key -o StrictHostKeyChecking=no" ./ mosao@cpanel.mos.ao:/home/mosao/api-metalica
+        ssh -i private_key -o StrictHostKeyChecking=no mosao@cpanel.mos.ao'cd /home/mosao/api-metalica && npm install --production && pm2 restart api-metalica'
+
+    - name: Cleanup
+      run: rm private_key
