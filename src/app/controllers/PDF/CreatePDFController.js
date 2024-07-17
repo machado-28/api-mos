@@ -146,7 +146,8 @@ class CreatePDFController {
 
         ];
 
-        return await PDFGenerator.executeDowload({ data: tables, templateName: 'documento', res });
+        let data = await PDFGenerator.executeDowload({ data: tables, templateName: 'documento', res });
+        return data
     }
     async createSMEForm(req, res) {
         const { processoId } = req.body

@@ -2,12 +2,12 @@
 import Sequelize, { INTEGER, Model, NUMBER } from "sequelize";
 import "dotenv/config";
 
-class Progressos extends Model {
+class ProgressoProcessos extends Model {
   static init(sequelize) {
     super.init(
       {
-        nome: Sequelize.STRING,
-        descricao: Sequelize.STRING,
+
+        // descricao: Sequelize.STRING,
         concluido_responsavel: Sequelize.BOOLEAN,
         concluido_responsavel_em: Sequelize.DATE,
       },
@@ -25,6 +25,14 @@ class Progressos extends Model {
       foreignKey: "responsavelId",
       as: "responsavel",
     });
+    this.belongsTo(models.Steps, {
+      foreignKey: "stepId",
+      as: "step",
+    });
+    this.belongsTo(models.Processos, {
+      foreignKey: "processoId",
+      as: "processo",
+    });
 
     this.belongsTo(models.Usuarios, {
       foreignKey: "funcionarioId",
@@ -33,4 +41,4 @@ class Progressos extends Model {
 
   }
 }
-export default Progressos;
+export default ProgressoProcessos;

@@ -1,0 +1,86 @@
+<!-- template.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprovativo do Pedido de Emissão de Visto</title>
+  <style>
+    /* Adicione estilos CSS conforme necessário */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <img src="http://localhost:4000/public/metalica.png" alt="Metaloca logo">
+
+  </div>
+  <H1>MAPA DE CONTROLO DE <%= data[0].processo?.tipoVisto?.nome -%> / <%= data[0].processo.projecto.nome -%>
+  </H1>
+  <h2>Referente ao mês de <%= new Date(data[0].processo.createdAt).toLocaleString('default', { month: 'long' }); -%>,
+
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Nº</th>
+            <th>REQUERENTE</th>
+            <th>DATA DE SOLICITAÇÃO</th>
+            <th>NOME</th>
+            <th>NAC.</th>
+            <th>SEXO</th>
+            <th>PASSAPORTE Nº</th>
+            <th>MOB</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data.forEach(item=> { %>
+            <tr>
+              <td>
+                <%= item.numero %>
+              </td>
+              <td>
+                <%= item.processo.requerente %>
+              </td>
+              <td>
+                <%= item.processo?.createdAt %>
+              </td>
+              <td>
+                <%= item.processo.beneficiario?.nome %>
+              </td>
+              <td>
+                <%= item.processo.nacionalidade %>
+              </td>
+              <td>
+                <%= item.processo.genero %>
+              </td>
+              <td>
+                <%= item.processo.passaporte %>
+              </td>
+              <td>
+                <%= item.processo.mob %>
+              </td>
+            </tr>
+            <% }); %>
+        </tbody>
+      </table>
+      <div class="date">Data: <%= new Date().toLocaleDateString() %>
+      </div>
+</body>
+
+</html>

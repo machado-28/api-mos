@@ -6,6 +6,20 @@ import Tecnicos from "../../models/Tecnicos";
 import Clientes from "../../models/Clientes";
 import Projectos from "../../models/Projectos";
 import CreateProcessoUseCase from "../../Usecases/Processos/CreateProcessoUseCase";
+import Progressos from "../../models/ProgressoProcessos";
+import Usuarios from "../../models/Usuarios";
+import Processos from "../../models/Processos";
+import Steps from "../../models/Steps";
+import StatusDeSteps from "../../models/StatusDeSteps";
+import ProgressoProcessos from "../../models/ProgressoProcessos";
+import StepResponsavel from "../../models/StepResponsavel";
+import Painels from "../../models/Painels";
+import { where } from "sequelize";
+import buildWhereClause from "../../utils/buildWhereClause";
+import TipoVistos from "../../models/TipoVistos";
+import GerarPDF from "../PDF/GerarPDF";
+import PDFGenerator from "../PDF/PDFGenerator";
+import path from "path";
 
 class ProcessoController {
     async store(req, res) {
@@ -67,13 +81,13 @@ class ProcessoController {
             nacionalidade,
             filiacao,
             tipoId,
+            tipoVistoId,
             vistoId,
             passaporte,
             projectoId,
             sindicato,
             clienteId,
             beneficiarioId,
-            tipoVistoId,
             paisNascimento,
             enderecoAngola,
         } = req.body
@@ -132,7 +146,7 @@ class ProcessoController {
             sindicato,
             clienteId,
 
-
+            funcionarioId: req?.sessao?.id,
             beneficiarioId,
             funcao,
             paisNascimento,
@@ -142,9 +156,11 @@ class ProcessoController {
         });
 
         return res.status(201).json({
-            pedido,
+            processo,
             message: "Pedido Submetido com sucesso!!"
-        })
+        });
+
+
     }
 
     async count(req, res) {
@@ -159,7 +175,190 @@ class ProcessoController {
 
         return res.json({ total });
     };
+    async progresso(req, res) {
+        const processoRepository = new ProcessoRepository();
+        const { order, orderBy, statusId, stepId, projectoId, month, year, beneficiarioId, clienteId, date, responsavelId, tipoVistoId, processoId } = req.query
+        console.log("PARAMS", req.query);
+        let attributes = []
+        const filterProcesso = { beneficiarioId, clienteId, projectoId, id: processoId, date, tipoVistoId, month, year }
+        const filterProgresso = { statusId, stepId, responsavelId }
 
+        const whereClauseForProcesso = buildWhereClause(filterProcesso)
+        console.log("PROCESSOS ", filterProcesso);
+        const whereClauseForProgresso = buildWhereClause(filterProgresso)
+        console.log("PROGRESSO ", filterProgresso);
+
+        if (filterProcesso) {
+            const processos = await Processos.findAll({
+                where: whereClauseForProcesso
+            });
+
+            if (processos.length === 0) {
+                return res.status(200).json({
+                    progresso: 0,
+                    total: 0,
+                    status: "ok",
+                    code: 200
+                });
+            }
+        }
+        const { progresso, total } = await processoRepository.progresso({
+            whereClause: filterProgresso, attributes, includeClause: [
+                {
+                    model: Processos,
+                    as: "processo",
+                    where: whereClauseForProcesso,
+                    order: [[orderBy, order]],
+                    include: [{
+                        model: TipoVistos,
+                        as: "tipoVisto"
+                    },
+                    {
+                        model: Tecnicos,
+                        as: "beneficiario"
+                    },
+                    {
+                        model: Projectos,
+                        as: "projecto"
+                    }]
+
+                },
+                {
+                    model: Steps,
+                    as: "step",
+                    attributes: ["id", "nome"],
+                    // include: [
+                    //     {
+                    //         model: Usuarios,
+                    //         throught: StepResponsavel
+                    //     }
+                    // ]
+
+                },
+                {
+                    model: StatusDeSteps,
+                    as: "status",
+                    attributes: ["id", "nome"]
+
+                },
+                {
+                    model: Usuarios,
+                    as: "responsavel"
+                },
+                {
+                    model: Usuarios,
+                    as: "funcionario",
+                    attributes: ["id", "nome", "painelId"],
+                    include: [
+                        {
+                            model: Painels,
+                            attributes: ["id", "nome"],
+                            as: "painel"
+                        }
+                    ]
+
+                },
+
+
+            ]
+        })
+        return res.status(200).json({
+            progresso,
+            total,
+            status: "ok",
+            code: 200
+        });
+    }
+    async mapa(req, res) {
+        const processoRepository = new ProcessoRepository();
+        const { order, orderBy, statusId, stepId, projectoId, month, year, beneficiarioId, clienteId, date, responsavelId, tipoVistoId, processoId } = req.query
+        console.log("PARAMS", req.query);
+        let attributes = []
+        const filterProcesso = { beneficiarioId, clienteId, projectoId, id: processoId, date, tipoVistoId, month, year }
+        const filterProgresso = { statusId, stepId, responsavelId }
+
+        const whereClauseForProcesso = buildWhereClause(filterProcesso)
+        console.log("PROCESSOS ", filterProcesso);
+        const whereClauseForProgresso = buildWhereClause(filterProgresso)
+        console.log("PROGRESSO ", filterProgresso);
+
+        if (filterProcesso) {
+            const processos = await Processos.findAll({
+                where: whereClauseForProcesso
+            });
+
+            if (processos.length === 0) {
+                return res.status(200).json({
+                    progresso: 0,
+                    total: 0,
+                    status: "ok",
+                    code: 200
+                });
+            }
+        }
+        const { progresso, total } = await processoRepository.progresso({
+            whereClause: filterProgresso, attributes, includeClause: [
+                {
+                    model: Processos,
+                    as: "processo",
+                    where: whereClauseForProcesso,
+                    order: [[orderBy, order]],
+                    include: [{
+                        model: TipoVistos,
+                        as: "tipoVisto"
+                    }, {
+                        model: Tecnicos,
+                        as: "beneficiario"
+                    },
+                    {
+                        model: Projectos,
+                        as: "projecto"
+                    }
+                    ]
+
+                },
+                {
+                    model: Steps,
+                    as: "step",
+                    attributes: ["id", "nome"],
+                    // include: [
+                    //     {
+                    //         model: Usuarios,
+                    //         throught: StepResponsavel
+                    //     }
+                    // ]
+
+                },
+                {
+                    model: StatusDeSteps,
+                    as: "status",
+                    attributes: ["id", "nome"]
+
+                },
+                {
+                    model: Usuarios,
+                    as: "responsavel"
+                },
+                {
+                    model: Usuarios,
+                    as: "funcionario",
+                    attributes: ["id", "nome", "painelId"],
+                    include: [
+                        {
+                            model: Painels,
+                            attributes: ["id", "nome"],
+                            as: "painel"
+                        }
+                    ]
+
+                },
+
+
+            ]
+        });
+        const templateName = path.join(__dirname, "Mapa.ejs")
+        PDFGenerator.executeDowload({ data: progresso, templateName, res, })
+    }
     async list(req, res) {
         const processoRepository = new ProcessoRepository();
         const { order, orderBy } = req.query
@@ -175,7 +374,6 @@ class ProcessoController {
                 as: "cliente",
 
             },
-
 
             ]
         })
@@ -14769,4 +14967,3 @@ export default new ProcessoController()
 
 
 
-       

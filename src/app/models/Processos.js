@@ -62,6 +62,14 @@ class Processos extends Model {
       foreignKey: "tipoId",
       as: "tipo",
     });
+    ; this.belongsTo(models.TipoVistos, {
+      foreignKey: "tipoVistoId",
+      as: "tipoVisto",
+    });
+    this.hasMany(models.ProgressoProcessos, {
+      foreignKey: "processoId",
+      as: "progresso",
+    });
   }
 }
 export default Processos;

@@ -15,7 +15,7 @@ function builOrderClause(ordersParams) {
             }
             // Validar o campo orderBy, padrão é "nome"
 
-            let validOrderBy = orderBy && typeof orderBy === "string" ? orderBy : "nome";
+            let validOrderBy = orderBy && typeof orderBy === "string" ? orderBy : "id";
 
             if ((orderBy === undefined && "id") || (orderBy === "undefined" && "id") || (orderBy === null && "id") || (orderBy === "null" && "id")) {
                 validOrderBy = "id"
@@ -27,7 +27,7 @@ function builOrderClause(ordersParams) {
             orderClause.push([validOrderBy, validOrder]);
         });
     } else {
-        orderClause.push(["nome", "ASC"]);
+        orderClause.push(["id", "ASC"]);
     }
     return orderClause
 }

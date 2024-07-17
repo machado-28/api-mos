@@ -58,7 +58,8 @@ routes.patch("/api/v1/pedidos/:id", UpdatePedidoController.execute);
 routes.put("/api/v1/processo/:id", UpdateProcessoController.execute);
 routes.post("/api/v1/processos/", ProcessoController.store);
 routes.get("/api/v1/processos/", ProcessoController.list);
-
+routes.get("/api/v1/processos/progresso", ProcessoController.progresso);
+routes.get("/api/v1/processos/mapa", ProcessoController.mapa);
 routes.get("/api/v1/painels/", PainelController.list);
 
 

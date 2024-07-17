@@ -13,11 +13,11 @@ class Steps extends Model {
     );
     return this
   }
-  static associate(models) {
-    this.belongsTo(models.StatusDeSteps, {
-      foreignKey: "statusId",
-      as: "status",
-    });
-  }
+  // static associate(models) {
+  //   this.belongsTo(models.StatusDeSteps, {
+  //     foreignKey: "statusId",
+  //     as: "status",
+  //   });
+  // }
 }
 export default Steps;

@@ -5,11 +5,12 @@ import Requerentes from "../models/Requerentes";
 import generateRandomNumber from "../utils/NumeroAleatorio";
 import Vistos from "../models/Vistos";
 import CreateProcessoUseCase from "../Usecases/Processos/CreateProcessoUseCase";
-import Progressos from "../models/Progressos";
+import Progressos from "../models/ProgressoProcessos";
 import buildWhereClause from "../utils/buildWhereClause";
 import buildIncludeClause from "../utils/buildIncludeClause";
 import builOrderClause from "../utils/buildOrderClause";
 import builAttributesClause from "../utils/buildAttributesClause";
+import ProgressoProcessos from "../models/ProgressoProcessos";
 
 
 export class ProcessoRepository {
@@ -119,6 +120,16 @@ export class ProcessoRepository {
         });
         return { processos, total }
     };
+    async progresso({ whereClause, orderClause, includeClause, attributesClause, attributes }) {
+        const { rows: progresso, count: total } = await ProgressoProcessos.findAndCountAll({
+            where: buildWhereClause(whereClause),
+            include: buildIncludeClause(includeClause),
+            order: [builOrderClause(orderClause)],
+            attributes: builAttributesClause(attributes)
+        });
+        return { progresso, total }
+    };
+
 
     async count({ whereClause }) {
         const processos =

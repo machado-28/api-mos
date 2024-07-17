@@ -5,7 +5,7 @@ import path from "path";
 
 class PDFGenerator {
     executeDowload({ data, templateName, optionsPapper = { format: 'Letter' }, res }) {
-        const templatePath = path.join(__dirname, templateName + ".ejs");
+        const templatePath = templateName;
 
         // Renderizar o template EJS com os dados fornecidos
         ejs.renderFile(templatePath, { data }, (err, html) => {

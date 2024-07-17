@@ -25,7 +25,7 @@ import Tecnicos from "./Tecnicos";
 import Steps from "./Steps";
 import StatusDeSteps from "./StatusDeSteps";
 import StepResponsavel from "./StepResponsavel";
-import Progressos from "./Progressos";
+import ProgressoProcessos from "./ProgressoProcessos";
 
 
 const models = [
@@ -55,6 +55,6 @@ const models = [
     Steps,
     StatusDeSteps,
     StepResponsavel,
-    Progressos
+    ProgressoProcessos
 ];
 export default models;

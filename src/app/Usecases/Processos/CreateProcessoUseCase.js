@@ -6,11 +6,13 @@ import { TecnicoRepository } from "../../CustomRepositories/TecnicoRepository";
 import { TipoDePedidoRepository } from "../../CustomRepositories/TipoDePedidoRepository";
 import { TipoDeVistoRepository } from "../../CustomRepositories/TipoDeVistoRepository";
 import { NotFoundError } from "../../helpers/api-errors";
+import ProgressoProcessos from "../../models/ProgressoProcessos";
 
 const pendente = 1
 
 class CreateProcessoUsecase {
     async execute({
+        funcionarioId,
         dataNascimento,
         genero,
         estadoCivil,
@@ -127,6 +129,14 @@ class CreateProcessoUsecase {
             paisNascimento,
         });
         const { id } = novoProcesso;
+
+        await ProgressoProcessos.create({
+            processoId: id,
+            statusId: 1,
+            stepId: 1,
+            funcionarioId,
+            concluido_reponsavel: false,
+        })
         return novoProcesso
 
     }
