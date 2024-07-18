@@ -28,6 +28,7 @@
     "nodemailer-express-handlebars": "^5.0.0",
     "pdfmake": "^0.2.9",
     "puppeteer": "^22.1.0",
+    "qrcode": "^1.5.3",
     "request-promise": "^4.2.6",
     "sequelize": "^6.21.3",
     "socket.io": "^4.7.2",

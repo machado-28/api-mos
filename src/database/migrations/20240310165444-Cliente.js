@@ -15,11 +15,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
-      sindicato: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       email: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -75,7 +70,7 @@ module.exports = {
       avatarId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        refences: { model: "ficheiros", key: "id" },
+        refences: { model: "Ficheiros", key: "id" },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },

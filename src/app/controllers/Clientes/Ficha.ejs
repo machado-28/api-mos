@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+        }
+
+        .container {
+            border: 1px solid #000;
+            padding: 20px;
+            width: 94%;
+            margin: 0 10px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 100px;
+        }
+
+        .content {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            padding: 20px 0;
+        }
+
+        .content div {
+            margin: 10px 0;
+        }
+
+        .content hr {
+            border: 0;
+            border-top: 1px solid #000;
+            margin: 10px 0;
+        }
+
+        .qr-code {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .center-content {
+            text-align: center;
+            margin: 0 auto;
+            width: 80%;
+            /* Ajuste conforme necessário */
+        }
+
+        #logo {
+            height: 30px;
+            margin-right: 20px;
+            margin: 6px;
+
+        }
+
+        .content div strong {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <section class="center-content ">
+            <div class="">
+                <img src="http://localhost:4000/public/metalica.png" id="logo" alt="Metaloca logo">
+
+            </div>
+            <strong>Metalica oil services</strong> <br>
+            <span>Construção civil e obras públicas</span>
+
+        </section>
+        <div class="center-content">
+            <strong>FORMULARIO DE CADASTRO DE CLIENTE </strong> <br>
+
+        </div>
+        <div class="content">
+            <div>
+                Nome:
+                <strong>
+                    <%= data?.nome %>
+                </strong>
+
+
+                Email:
+                <strong>
+                    <%= data?.email %>
+                </strong>
+                <hr>
+                Contactos:
+                <strong>
+                    <%= data?.telefone1 %>
+                </strong>
+
+                </strong>
+                <%= data?.telefone2 %>
+                    </strong>
+            </div>
+            <hr>
+            <div>
+                Empresa:
+                <strong>
+                    <%= data?.nomeEmpresa %>
+                </strong>
+
+                Ramo
+                <strong>
+                    <%= data?.ramo %>
+                </strong>
+                <hr>
+                Site
+                <strong>
+                    <%= data?.site %>
+                </strong>
+                Endereço
+                <strong>
+                    provincia:<%= data?.provincia %>
+                </strong>
+                <strong>
+                    municipio:<%= data?.municipio %>
+                </strong>
+                <strong>
+                    comuna:<%= data?.comuna %>
+                </strong>
+            </div>
+
+            <div>Data: <%= new Date(data?.createdAt).toLocaleString() %>
+            </div>
+            <hr>
+
+        </div>
+        <hr>
+         
+    </div>
+
+    <div class="qr-code">
+        <img src="<%= data?.qrCodeUrl %>" alt="QR Code">
+    </div>
+    </div>
+</body>
+
+</html>

@@ -103,7 +103,7 @@
       <Div class="center-content"> Referente ao mês de <strong>
           <%= new Date(data[0].processo.createdAt).toLocaleString('default', { month: 'long' }); -%>
         </strong>de <strong>
-          <%= new Date(data[0].processo.createdAt).getFullYear(); -%>
+          <%= new Date(data[0].processo.createdAt).toLocaleString('default', { year: 'long' }); -%>
         </strong></Div>
 
       <br>
@@ -192,9 +192,9 @@
   </div>
   <footer style="margin-top: 40px;">
     Data: <%= new Date().toLocaleString() %>
-      <div style="margin-top: 40px;">
-        ****************************************** Processado pelo computador
-        *******************************************
+      <div class="date">
+        *********************************************** Processado pro computador
+        ***************************************
   </footer>
 </body>
 

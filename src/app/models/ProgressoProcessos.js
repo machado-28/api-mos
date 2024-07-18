@@ -10,6 +10,8 @@ class ProgressoProcessos extends Model {
         // descricao: Sequelize.STRING,
         concluido_responsavel: Sequelize.BOOLEAN,
         concluido_responsavel_em: Sequelize.DATE,
+
+        descricao: Sequelize.STRING
       },
       { sequelize }
     );

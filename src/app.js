@@ -30,7 +30,7 @@ class App {
       },)
     );
     this.server.use("/ficheiros",
-      express.static(path.resolve(__dirname, "..", "temp", "uploads")),)
+      express.static(path.resolve(__dirname, "..", "temp", "upload")),)
     this.server.use("/public",
       express.static(path.resolve(__dirname, "..", "public")),)
   }

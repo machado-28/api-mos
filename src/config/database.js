@@ -12,7 +12,7 @@ module.exports = {
       timestamps: true,
       underscored: false,
       underscoredAll: false,
-      freezeTableName: true,
+      freezeTableName: false,
     },
   },
   production: {

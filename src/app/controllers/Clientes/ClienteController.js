@@ -4,7 +4,10 @@ import { BadRequestError } from "../../helpers/api-errors";
 import CreateClienteUsecase from "../../Usecases/Clientes/CreateClienteUsecase";
 import { ClienteRepository } from "../../CustomRepositories/ClienteRepository";
 import { ProcessoRepository } from "../../CustomRepositories/ProcessoRepository";
-
+import buildWhereClause from "../../utils/buildWhereClause";
+import QRCode from 'qrcode'
+import path from "path";
+import PDFGenerator from "../PDF/PDFGenerator";
 
 
 class ClienteController {
@@ -180,6 +183,46 @@ class ClienteController {
             code: 200
         })
     }
+    async ficha(req, res) {
+        const clienteRepository = new ClienteRepository();
+        const { clienteId } = req.query
+        console.log("PARAMS", req.query);
+        let attributes = []
+        const filterCliente = { id: clienteId }
 
+        const whereClauseForCliente = buildWhereClause(filterCliente)
+        const qrCodeUrl = await QRCode.toDataURL(process.env.APP_FRONT_URL_DEV + `clientes/${clienteId}/detail`);
+
+
+        let { clientes, total } = await clienteRepository.getAllCustom({
+            whereClause: filterCliente, attributes, includeClause: [
+            ]
+        });
+        const templateName = path.join(__dirname, "Ficha.ejs")
+        clientes[0].qrCodeUrl = qrCodeUrl
+        PDFGenerator.executeDowload({ data: clientes[0], templateName, res, })
+
+    }
+
+    async ListaPdf(req, res) {
+        const clienteRepository = new ClienteRepository();
+        const { clienteId } = req.query
+        console.log("PARAMS", req.query);
+        let attributes = []
+
+
+        const whereClauseForCliente = buildWhereClause(req.query)
+        const qrCodeUrl = await QRCode.toDataURL(process.env.APP_FRONT_URL_DEV + `clientes/${clienteId}/detail`);
+
+
+        let { clientes, total } = await clienteRepository.getAllCustom({
+            whereClause: whereClauseForCliente, attributes, includeClause: [
+            ]
+        });
+        const templateName = path.join(__dirname, "Lista.ejs")
+        clientes[0].qrCodeUrl = qrCodeUrl
+        PDFGenerator.executeDowload({ data: clientes, templateName, res, })
+
+    }
 }
 export default new ClienteController()

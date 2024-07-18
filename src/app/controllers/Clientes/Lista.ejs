@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAPA DE CONTROLO PDF</title>
+  <title>Clientes</title>
 
   <style>
     * {
@@ -96,32 +96,19 @@
 
       </section>
       <br>
-      <h4 class="center-content">MAPA DE CONTROLO DE VISTO DE <%= data[0].processo?.tipoVisto?.nome.toLocaleUpperCase()
-          -%>
+      <h4 class="center-content">Lista de Clientes
       </H4>
       <br>
-      <Div class="center-content"> Referente ao mês de <strong>
-          <%= new Date(data[0].processo.createdAt).toLocaleString('default', { month: 'long' }); -%>
-        </strong>de <strong>
-          <%= new Date(data[0].processo.createdAt).getFullYear(); -%>
-        </strong></Div>
 
       <br>
       <br>
 
-      <section>
 
-        <u> Projecto: <strong style="color:#1798e2;">
-            <%= data[0].processo.projecto.nome -%>
-          </strong>
-
-          Cliente: <strong style="color:#1798e2;margin-left: 10px;">
-            <%= data[0].processo.cliente?.nomeEmpresa -%>
-          </strong>
-        </u>
-
-      </section>
-
+      <h4>TOTAL: <SPAN>
+          <td>
+            <%= data?.length %>
+          </td>
+        </SPAN></h4>
 
       <hr>
     </div>
@@ -130,17 +117,15 @@
         <tr>
 
           <th>Nº</th>
-          <th>COD.</th>
-          <th>REQUERENTE</th>
-          <th>DATA DE SOLICITAÇÃO</th>
+
           <th>NOME</th>
-          <th>NAC.</th>
-          <th>SEXO</th>
-          <th>PASSAPORTE Nº</th>
-          <th>MOB</th>
-          <th>DAT.Recepção</th>
-          <th>DAT.Envio</th>
-          <th>Obs</th>
+          <th>Empresa</th>
+          <th>NIF</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Ramo</th>
+          <th>Site</th>
+          <th>Data</th>
         </tr>
       </thead>
       <tbody>
@@ -149,38 +134,31 @@
             <td>
               <%= index + 1 %>
             </td>
+
             <td>
-              <%= item.processo?.numero %>
-            </td>
-            <td>
-              <%= item.processo.requerente %>
+              <%= item.nome %>
             </td>
             <td>
-              <%= new Date(item.processo?.createdAt).toLocaleDateString() %>
+              <%= item.nomeEmpresa %>
             </td>
             <td>
-              <%= item.processo.beneficiario?.nome %>
+              <%= item.nif %>
             </td>
             <td>
-              <%= item.processo.nacionalidade %>
-            </td>
-            <td style="background-color: <%= index%2===0 ? 'yellow' : '#1798e2' %>">
-              <%= item.processo.genero %>
+              <%= item.email%>
             </td>
             <td>
-              <%= item.processo.passaporteNumero %>
+              <%= item.telefone1%><br>
+                <%= item.telefone2%>
             </td>
             <td>
-              <%= new Date(item.processo.mob||new Date()).toLocaleDateString() %>
+              <%= item?.ramo %>
             </td>
             <td>
-              <%= new Date(item.processo.mob||new Date()).toLocaleDateString() %>
+              <a href="<%= item?.site %>"></a>
             </td>
             <td>
-              <%= new Date(item.processo.mob||new Date()).toLocaleDateString() %>
-            </td>
-            <td style="background-color: <%= item?.descricao===undefined ? 'yellow' : 'white' %>">
-              <%= item.descricao||"vazio" %>
+              <%= new Date(item.createdAt||new Date()).toLocaleDateString() %>
             </td>
           </tr>
           <% }); %>

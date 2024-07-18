@@ -141,4 +141,69 @@ export class ProcessoRepository {
         return { total: processos }
     };
 
+    async updateStepAndStatus({ statusId, stepId, clienteId, processoId, descricao }) {
+        let processExiste = await this.getById({ id: processoId });
+
+        let progresso = await ProgressoProcessos.findOne({
+            where: {
+                processoId
+            }
+        })
+
+        if (!processExiste) {
+            throw new NotFoundError("processo Id Invalido!")
+        }
+        if (!progresso) {
+            throw new NotFoundError("processo Id Invalido!")
+        }
+
+        if (statusId && !stepId)
+            await progresso.update({
+                statusId,
+                descricao
+            });
+
+
+        if (!statusId && stepId)
+            await progresso.update({
+                stepId,
+                descricao
+            });
+
+
+        if (statusId && stepId)
+            await progresso.update({
+                statusId, stepId,
+                descricao
+            })
+
+        return true
+
+    }
+    async getById({ id, }) {
+        const processo = await Processos.findOne({
+            where: {
+                id,
+
+            },
+        });
+        console.log("processo", processo);
+        return processo;
+    }
+
+    async delete({ id }) {
+        const processo = await Processos.findOne({
+            where: {
+                id,
+
+            },
+
+        });
+        if (!processo) {
+            throw new NotFoundError("processo nao encontrado");
+        }
+        console.log("processo", processo);
+        await processo.destroy(id)
+        return true;
+    };
 }

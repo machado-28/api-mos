@@ -1,15 +1,9 @@
 {
   "folders": [
-	{
-		"path": ".."
-	},
-	{
-		"path": "../../FRONT-METALICA"
-	},
-	{
-		"path": "../../CLIENT"
-	}
-],
+    {
+      "path": ".."
+    }
+  ],
   "settings": {
     "vs-code-prettier-eslint.prettierLast": "false",
     "workbench.colorCustomizations": {

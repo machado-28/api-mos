@@ -101,14 +101,14 @@ module.exports = {
       clienteId: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: "clientes", key: "id" },
+        references: { model: "Clientes", key: "id" },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
       funcionarioId: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: "usuarios", key: "id" },
+        references: { model: "Usuarios", key: "id" },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
@@ -117,7 +117,7 @@ module.exports = {
       beneficiarioId: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: "tecnicos", key: "id" },
+        references: { model: "Tecnicos", key: "id" },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
@@ -125,7 +125,7 @@ module.exports = {
       tipoVistoId: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: "tipoVistos", key: "id" },
+        references: { model: "TipoVistos", key: "id" },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
@@ -133,7 +133,7 @@ module.exports = {
       tipoId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: "tipoPedidos", key: "id" },
+        references: { model: "TipoPedidos", key: "id" },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
@@ -141,14 +141,14 @@ module.exports = {
       vistoId: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: "vistos", key: "id" },
+        references: { model: "Vistos", key: "id" },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
       projectoId: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: "projectos", key: "id" },
+        references: { model: "Projectos", key: "id" },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },

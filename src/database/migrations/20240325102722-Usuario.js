@@ -29,20 +29,20 @@ module.exports = {
       avatarId: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: "ficheiros", key: "id" },
+        references: { model: "Ficheiros", key: "id" },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
       clienteId: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: "clientes", key: "id" },
+        references: { model: "Clientes", key: "id" },
 
       },
       painelId: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        references: { model: "painels", key: "id" },
+        references: { model: "Painels", key: "id" },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
