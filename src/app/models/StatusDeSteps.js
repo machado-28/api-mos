@@ -8,12 +8,17 @@ class StatusDeSteps extends Model {
     super.init(
       {
         nome: Sequelize.STRING,
-        descricao: Sequelize.STRING,
+
       },
       { sequelize }
     );
     return this
   }
-
+  static associate(models) {
+    this.hasMany(models.ProcessoFases, {
+      foreignKey: "statusId",
+      as: "processos",
+    });
+  }
 }
 export default StatusDeSteps;

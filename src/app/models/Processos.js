@@ -3,7 +3,7 @@ import PedidoFazes from "./PedidoFazes";
 
 /* eslint-disable no-param-reassign */
 const Sequelize = require("sequelize");
-const { Model } = require("sequelize");
+const { Model, DataTypes } = require("sequelize");
 
 
 class Processos extends Model {
@@ -11,7 +11,7 @@ class Processos extends Model {
     super.init(
       {
         numero: Sequelize.STRING,
-        descricao: Sequelize.STRING,
+
         requerente: Sequelize.STRING,
         dataNascimento: Sequelize.DATE,
         mob: Sequelize.DATE,
@@ -26,8 +26,10 @@ class Processos extends Model {
         passaporteDataValidade: Sequelize.DATE,
         passaporteDataEmissao: Sequelize.DATE,
         passaporteEmissora: Sequelize.STRING,
-        sindicato: Sequelize.STRING,
+        consulado: Sequelize.STRING,
         funcao: Sequelize.STRING,
+        submetidoPorId: DataTypes.INTEGER,
+        statusId: DataTypes.INTEGER,
 
       },
       { sequelize }
@@ -39,17 +41,6 @@ class Processos extends Model {
       foreignKey: "clienteId",
       as: "cliente",
     });
-
-    // this.belongsTo(models.TipoPedidos, {
-    //   foreignKey: "tipoId",
-    //   as: "tipoPedido",
-    // });
-
-    // this.belongsTo(models.TipoVistos, {
-    //   foreignKey: "tipoVistoId",
-    //   as: "tipoVisto",
-    // });
-
     this.belongsTo(models.Tecnicos, {
       foreignKey: "beneficiarioId",
       as: "beneficiario",
@@ -69,6 +60,18 @@ class Processos extends Model {
     this.hasMany(models.ProgressoProcessos, {
       foreignKey: "processoId",
       as: "progresso",
+    });
+    this.hasMany(models.ProcessoFases, {
+      foreignKey: "processoId",
+      as: "fases",
+    });
+    this.belongsTo(models.Usuarios, {
+      foreignKey: "submetidoPorId",
+      as: "submetidoPor",
+    });
+    this.belongsTo(models.StatusDeSteps, {
+      foreignKey: "statusId",
+      as: "status",
     });
   }
 }

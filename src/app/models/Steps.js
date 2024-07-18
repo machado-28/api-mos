@@ -7,7 +7,7 @@ class Steps extends Model {
     super.init(
       {
         nome: Sequelize.STRING,
-        descricao: Sequelize.STRING,
+
       },
       { sequelize }
     );

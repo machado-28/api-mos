@@ -16,13 +16,6 @@ module.exports = {
         allowNull: false,
       },
 
-      descricao: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        defaultValue: "sem comentário"
-      },
-
-
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

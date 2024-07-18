@@ -14,10 +14,10 @@ import TipoVistos from "./TipoVistos";
 import Usuarios from "./Usuarios";
 import VistoStatus from "./VistoStatus";
 import Vistos from "./Vistos";
-import ProcessoFazes from "./ProcessoFazes";
+import ProcessoFases from "./ProcessoFases";
 import Processos from "./Processos";
 import Projectos from "./Projectos";
- 
+
 import FazesStatusDoProcessos from "./FazesStatusDoProcessos";
 import ProjectosTipoVistos from "./ProjectosTipoVistos";
 import Clientes from "./Clientes";
@@ -44,11 +44,11 @@ const models = [
     PedidoFazes,
     Fazes,
     VistoStatus,
-    ProcessoFazes,
+    ProcessoFases,
     Processos,
     Projectos,
     FazesStatusDoProcessos,
-   
+
     ProjectosTipoVistos,
     Clientes,
     Tecnicos,

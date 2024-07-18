@@ -184,7 +184,6 @@ export class ProcessoRepository {
         const processo = await Processos.findOne({
             where: {
                 id,
-
             },
         });
         console.log("processo", processo);

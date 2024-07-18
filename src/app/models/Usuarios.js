@@ -42,6 +42,10 @@ class Usuarios extends Model {
       foreignKey: "gestorExternoId",
       as: "projectosExternos",
     });
+    this.hasMany(models.ProcessoFases, {
+      foreignKey: "responsavelId",
+      as: "responsavel",
+    });
   }
 
   validarSenha(senha) {

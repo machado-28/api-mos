@@ -1,7 +1,7 @@
 const { resolve } = require('path')
 require('dotenv').config()
 
-const path = process.env.NODE_ENV == 'development' ? 'src' : 'dist'
+const path = process.env.NODE_ENV === 'development' ? 'src' : 'dist'
    console.log(process.env.NODE_ENV);
 module.exports={
 config: resolve(__dirname, `${path}`,'config', 'database.js'),

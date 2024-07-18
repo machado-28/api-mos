@@ -325,7 +325,7 @@ class ProcessoController {
         const filterProcesso = { id: processoId }
 
         const whereClauseForProcesso = buildWhereClause(filterProcesso)
-        const qrCodeUrl = await QRCode.toDataURL(process.env.APP_FRONT_URL_DEV + `processos/${processoId}/detail`);
+        const qrCodeUrl = await QRCode.toDataURL(process.env.APP_FRONT_URL + `processos/${processoId}/detail`);
 
         if (filterProcesso) {
             const processos = await Processos.findOne({

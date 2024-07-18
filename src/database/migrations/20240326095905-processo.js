@@ -18,14 +18,15 @@ module.exports = {
       genero: {
         type: Sequelize.STRING,
         allowNull: false,
+        defaultValue: "M"
       },
       funcao: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      sindicato: {
+      consulado: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       estadoCivil: {
         type: Sequelize.STRING,
@@ -105,10 +106,17 @@ module.exports = {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
-      funcionarioId: {
+      submetidoPorId: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: { model: "Usuarios", key: "id" },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      },
+      statusId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: { model: "StatusDeSteps", key: "id" },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
