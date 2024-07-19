@@ -13,7 +13,7 @@ class DelegarProcessoController {
     async execute(req, res) {
         const schema = yup.object().shape({
             responsavelId: yup.date().required(),
-            praso: yup.string().required(),
+            prazo: yup.string().required(),
             statusId: yup.string().required(),
             stepId: yup.string().required(),
 
@@ -29,7 +29,7 @@ class DelegarProcessoController {
             throw new BadRequestError(erro);
         }
 
-        const { stepId, responsavelId, praso } = req.body;
+        const { stepId, responsavelId, prazo } = req.body;
         const { id: processoId } = req.params;
 
         const processoRepository = new ProcessoRepository()
@@ -58,7 +58,8 @@ class DelegarProcessoController {
         const processofase = await ProcessoFases.create({
             processoId,
             stepId,
-            praso,
+            prazo,
+            responsavelId,
             statusId: status?.id,
             dataInicio: new Date(),
         })

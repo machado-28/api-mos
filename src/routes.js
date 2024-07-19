@@ -26,6 +26,7 @@ import TecnicosController from "./app/controllers/Tecnicos/TecnicosController.js
 import ProcessoController from "./app/controllers/Processos/ProcessoController.js";
 import PainelController from "./app/controllers/Painel/PainelController.js";
 import DelegarProcessoController from "./app/controllers/Processos/DelegarProcessoController.js";
+import BucarStatusProcessoPorFaseController from "./app/controllers/Processos/BucarStatusProcessoPorFaseController.js";
 
 
 const upload = multer(multerConfig);
@@ -57,9 +58,10 @@ routes.get("/v1/pedidos", ListPedidosController.getOne);
 routes.patch("/v1/pedidos/:id", UpdatePedidoController.execute);
 
 routes.put("/v1/processo/:id", UpdateProcessoController.execute);
+routes.get("/v1/processos/list", BucarStatusProcessoPorFaseController.execute);
 routes.post("/v1/processos/:id/delegar", DelegarProcessoController.execute);
 routes.post("/v1/processos", ProcessoController.store);
-routes.get("/v1/processos", ProcessoController.list);
+// routes.get("/v1/processos", ProcessoController.list);
 routes.get("/v1/processos/progresso", ProcessoController.progresso);
 routes.get("/v1/processos/mapa", ProcessoController.mapa);
 routes.get("/v1/processos/ficha", ProcessoController.ficha);
